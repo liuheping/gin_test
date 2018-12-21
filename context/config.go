@@ -29,7 +29,7 @@ type Config struct {
 func LoadConfig(path string) *Config {
 	config := viper.New()
 	config.SetConfigName("Config")
-	config.AddConfigPath(".")
+	config.AddConfigPath(path)
 	err := config.ReadInConfig()
 	if err != nil {
 		log.Fatalf("Fatal error context file: %s \n", err)
