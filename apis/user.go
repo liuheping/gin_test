@@ -43,10 +43,13 @@ func Store(c *gin.Context) {
 		})
 		return
 	}
+
+	user.ID = id
+
 	c.JSON(http.StatusOK, gin.H{
 		"code":    1,
 		"message": "添加成功",
-		"data":    id,
+		"data":    user,
 	})
 }
 

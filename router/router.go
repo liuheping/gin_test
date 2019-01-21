@@ -17,5 +17,13 @@ func InitRouter() *gin.Engine {
 
 	router.DELETE("/user/:id", Destroy)
 
+	router.GET("/getCategories", GetCategories)
+
+	router.GET("/maps", GetMaps)
+
+	router.GET("/getSites", GetSites)
+
+	router.GET("/getSites2", GetSites2)
+
 	return router
 }
