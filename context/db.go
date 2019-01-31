@@ -3,7 +3,6 @@ package context
 import (
 	"fmt"
 	"log"
-	"time"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
@@ -18,9 +17,7 @@ func OpenCommonDB(config *Config) (*gorm.DB, error) {
 	CommonDB, err = gorm.Open("mysql", fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local&timeout=10ms", config.DhbCommon.User, config.DhbCommon.Password, config.DhbCommon.Host, config.DhbCommon.Port, config.DhbCommon.DbName))
 
 	if err != nil {
-		log.Println(err, "连接错误，将在5S内重试... ")
-		time.Sleep(time.Duration(5) * time.Second)
-		return OpenCommonDB(config)
+		log.Fatal(err)
 	}
 
 	log.Println("公共数据库连接成功!")
@@ -35,9 +32,7 @@ func OpenDataDB(config *Config) (*gorm.DB, error) {
 	DataDB, err = gorm.Open("mysql", fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local&timeout=10ms", config.DhbData.User, config.DhbData.Password, config.DhbData.Host, config.DhbData.Port, config.DhbData.DbName))
 
 	if err != nil {
-		log.Println(err, "连接错误，将在5S内重试... ")
-		time.Sleep(time.Duration(5) * time.Second)
-		return OpenDataDB(config)
+		log.Fatal(err)
 	}
 
 	log.Println("业务数据库连接成功!")

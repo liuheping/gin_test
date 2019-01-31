@@ -9,13 +9,13 @@ import (
 func InitRouter() *gin.Engine {
 	router := gin.Default()
 
-	router.GET("/getCategories", GetCategories)
+	router.POST("/getCategories", GetCategories)
 
-	router.GET("/maps", GetMaps)
+	router.POST("/maps", GetMaps)
 
-	router.GET("/getSites", GetSites)
+	router.POST("/getSites", GetSites)
 
-	router.GET("/getSites2", GetSites2)
+	router.POST("/getSites2", GetSites2)
 
 	return router
 }
