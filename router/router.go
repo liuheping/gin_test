@@ -9,14 +9,6 @@ import (
 func InitRouter() *gin.Engine {
 	router := gin.Default()
 
-	router.GET("/users", Users)
-
-	router.POST("/user", Store)
-
-	router.PUT("/user/:id", Update)
-
-	router.DELETE("/user/:id", Destroy)
-
 	router.GET("/getCategories", GetCategories)
 
 	router.GET("/maps", GetMaps)

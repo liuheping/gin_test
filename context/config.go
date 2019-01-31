@@ -20,7 +20,6 @@ type Config struct {
 
 	DhbCommon DbAuth
 	DhbData   DbAuth
-	GinTest   DbAuth
 
 	LogDebugMode bool
 	LogFormat    string
@@ -56,14 +55,6 @@ func LoadConfig(path string) *Config {
 			User:     config.GetString("dbb_data.user"),
 			Password: config.GetString("dbb_data.password"),
 			DbName:   config.GetString("dbb_data.dbname"),
-		},
-
-		GinTest: DbAuth{
-			Host:     config.GetString("db_gin_test.host"),
-			Port:     config.GetString("db_gin_test.port"),
-			User:     config.GetString("db_gin_test.user"),
-			Password: config.GetString("db_gin_test.password"),
-			DbName:   config.GetString("db_gin_test.dbname"),
 		},
 	}
 }

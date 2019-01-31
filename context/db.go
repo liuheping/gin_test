@@ -9,32 +9,8 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
-var DB *gorm.DB
 var CommonDB *gorm.DB
 var DataDB *gorm.DB
-
-func OpenDB(config *Config) (*gorm.DB, error) {
-	var err error
-	log.Println("正在连接测试数据库... ")
-	DB, err = gorm.Open("mysql", fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local&timeout=10ms", config.GinTest.User, config.GinTest.Password, config.GinTest.Host, config.GinTest.Port, config.GinTest.DbName))
-
-	if err != nil {
-		log.Println(err, "连接错误，将在5S内重试... ")
-		time.Sleep(time.Duration(5) * time.Second)
-		return OpenDB(config)
-	}
-
-	if DB.Error != nil {
-		log.Println(DB.Error, "连接错误，将在5S内重试... ")
-		time.Sleep(time.Duration(5) * time.Second)
-		return OpenDB(config)
-	}
-
-	log.Println("测试数据库连接成功!")
-	DB.LogMode(true)
-	DB.SingularTable(true)
-	return DB, nil
-}
 
 func OpenCommonDB(config *Config) (*gorm.DB, error) {
 	var err error
@@ -47,15 +23,9 @@ func OpenCommonDB(config *Config) (*gorm.DB, error) {
 		return OpenCommonDB(config)
 	}
 
-	if CommonDB.Error != nil {
-		log.Println(CommonDB.Error, "连接错误，将在5S内重试... ")
-		time.Sleep(time.Duration(5) * time.Second)
-		return OpenCommonDB(config)
-	}
-
 	log.Println("公共数据库连接成功!")
-	CommonDB.LogMode(true)
-	CommonDB.SingularTable(true)
+	CommonDB.LogMode(true)       //启用Logger，显示详细日志
+	CommonDB.SingularTable(true) //全局设置表名不可以为复数形式
 	return CommonDB, nil
 }
 
@@ -70,14 +40,8 @@ func OpenDataDB(config *Config) (*gorm.DB, error) {
 		return OpenDataDB(config)
 	}
 
-	if DataDB.Error != nil {
-		log.Println(DataDB.Error, "连接错误，将在5S内重试... ")
-		time.Sleep(time.Duration(5) * time.Second)
-		return OpenDataDB(config)
-	}
-
 	log.Println("业务数据库连接成功!")
-	DataDB.LogMode(true)
-	DataDB.SingularTable(true)
+	DataDB.LogMode(true)       //启用Logger，显示详细日志
+	DataDB.SingularTable(true) //全局设置表名不可以为复数形式
 	return DataDB, nil
 }

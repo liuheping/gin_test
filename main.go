@@ -7,11 +7,7 @@ import (
 )
 
 func main() {
-	config := gcontext.LoadConfig(".")
-	DB, err := gcontext.OpenDB(config)
-	if err != nil {
-		log.Fatalf("连接数据库失败: %s \n", err)
-	}
+	config := gcontext.LoadConfig(".") // 加载配置
 	CommonDB, err := gcontext.OpenCommonDB(config)
 	if err != nil {
 		log.Fatalf("连接数据库失败: %s \n", err)
@@ -21,7 +17,6 @@ func main() {
 		log.Fatalf("连接数据库失败: %s \n", err)
 	}
 
-	defer DB.Close()
 	defer CommonDB.Close()
 	defer DataDB.Close()
 	router := router.InitRouter()
